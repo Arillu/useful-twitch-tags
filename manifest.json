@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "name": "Useful Twitch Tags",
   "version": "1.0",
-  "description": "Block/Search mutiple tags on twitch",
+  "description": "Block/Search multiple tags on twitch",
 
   "permissions": [
     "webRequest",
