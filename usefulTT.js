@@ -42,11 +42,9 @@ function listener(details) {
           if ("streams" in jsonobject[y].data) {
             streams = jsonobject[y].data.streams.edges;
             num = y;
-            break;
           } else if ("game" in jsonobject[y].data ? ("streams" in jsonobject[y].data.game ? ("cursor" in jsonobject[y].data.game.streams.edges[0]) : false ) : false ) {
             streams = jsonobject[y].data.game.streams.edges;
             num = y;
-            break;
           }
         }
         if (streams) {
