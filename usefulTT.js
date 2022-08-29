@@ -35,7 +35,6 @@ function listener(details) {
       let str = data.join("");
       foo = str
       if (str.startsWith('[{"data":{')) {
-        console.log(Searchlist);
         jsonobject = JSON.parse(str);
         streams = false;
         num = 0;
@@ -43,6 +42,11 @@ function listener(details) {
           if ("streams" in jsonobject[y].data) {
             streams = jsonobject[y].data.streams.edges;
             num = y;
+            break;
+          } else if ("game" in jsonobject[y].data ? ("streams" in jsonobject[y].data.game ? ("cursor" in jsonobject[y].data.game.streams.edges[0]) : false ) : false ) {
+            streams = jsonobject[y].data.game.streams.edges;
+            num = y;
+            break;
           }
         }
         if (streams) {
@@ -62,8 +66,11 @@ function listener(details) {
             }
 
             if (!FoundSearchlistTag || FoundBlocklistTag){
-              jsonobject[num].data.streams.edges[i].node.previewImageURL = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0NDAiIGhlaWdodD0iMjQ4Ij48cmVjdCB3aWR0aD0iNDQwIiBoZWlnaHQ9IjI0OCIgc3R5bGU9ImZpbGw6cmdiKDAsMCwwKTtzdHJva2Utd2lkdGg6MztzdHJva2U6cmdiKDAsMCwwKSIgLz48L3N2Zz4="
-            
+              if ("streams" in jsonobject[num].data) {
+                jsonobject[num].data.streams.edges[i].node.previewImageURL = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0NDAiIGhlaWdodD0iMjQ4Ij48cmVjdCB3aWR0aD0iNDQwIiBoZWlnaHQ9IjI0OCIgc3R5bGU9ImZpbGw6cmdiKDAsMCwwKTtzdHJva2Utd2lkdGg6MztzdHJva2U6cmdiKDAsMCwwKSIgLz48L3N2Zz4="
+              } else {
+                jsonobject[num].data.game.streams.edges[i].node.previewImageURL = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0NDAiIGhlaWdodD0iMjQ4Ij48cmVjdCB3aWR0aD0iNDQwIiBoZWlnaHQ9IjI0OCIgc3R5bGU9ImZpbGw6cmdiKDAsMCwwKTtzdHJva2Utd2lkdGg6MztzdHJva2U6cmdiKDAsMCwwKSIgLz48L3N2Zz4="
+              }
             }
           }
         }
